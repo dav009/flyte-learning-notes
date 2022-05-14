@@ -73,3 +73,17 @@ https://github.com/flyteorg/flytekit/blob/c011ef7cf47ac8ffc06c48e000cb309d9df999
 
 
 - what is "FLYTE_INTERNAL_IMAGE" used for?
+
+## Spark
+
+- Spark data class describes how spark cluster looks like (how many instances etc)
+- properller plugin code: https://github.com/flyteorg/flyteplugins/tree/master/go/tasks/plugins/k8s/spark
+   - https://github.com/flyteorg/flyteplugins/blob/master/go/tasks/plugins/k8s/spark/spark.go makes sure spark cluster is running.
+   - clearns spark cluster after task has ranges
+   - passes cluster infromation to the next task running
+- pyflykit install spark using flykit_install_spark3.sh
+- pre_execute creates the spark session 
+ - if it is local then it creates the spark session for local
+ - if it is not local then it does nothing, just builds session
+ - puts spark_session in flytecontext
+
