@@ -87,3 +87,44 @@ https://github.com/flyteorg/flytekit/blob/c011ef7cf47ac8ffc06c48e000cb309d9df999
  - if it is not local then it does nothing, just builds session
  - puts spark_session in flytecontext
 
+
+---
+# Java flytekit
+
+run:
+
+create `.env.local`:
+```
+FLYTE_PLATFORM_URL=flyte.local:81
+FLYTE_STAGING_LOCATION=gs://yourbucket
+FLYTE_PLATFORM_INSECURE=True
+```
+
+run:
+```
+ mvn package
+```
+
+
+running workflow locally:
+```
+scripts/jflyte execute-local -cp=flytekit-examples/target/lib/ --workflow="org.flyte.examples.WelcomeWorkflow" --name=something
+```
+
+running scala workflows:
+
+```
+scripts/jflyte execute-local -cp=flytekit-examples-scala/target/lib/ --workflow="org.flyte.examples.flytekitscala.FibonacciWorkflow" --fib0=0 --fib1=1
+```
+
+register:
+
+```
+scripts/jflyte register workflows  -d=development -p=flytesnacks -cp=flytekit-examples-scala/target/lib/  -v=$(git describe --always)
+```
+
+build protos in flytekit-java
+
+```
+mvn  --projects flyteidl-protos install
+```
